@@ -1,0 +1,7 @@
+[alias]
+	s = status
+[user]
+	name = Herberth Amaral
+	email = herberthamaral@gmail.com
+[core]
+	editor = vim
