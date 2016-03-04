@@ -16,3 +16,4 @@ set incsearch
 execute pathogen#infect()
 set background=dark
 set number
+set wildignore=build,node_modules,*.pyc
