@@ -10,7 +10,7 @@
 [submodule ".vim/bundle/vim-flake8"]
 	path = .vim/bundle/vim-flake8
 	url = https://github.com/nvie/vim-flake8
-[submodule ".vim/vim-hardtime"]
+[submodule ".vim/bundle/vim-hardtime"]
 	path = .vim/bundle/vim-hardtime
 	url = https://github.com/takac/vim-hardtime
 [submodule ".vim/bundle/vim-python-pep8-indent"]
