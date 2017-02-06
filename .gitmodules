@@ -19,3 +19,6 @@
 [submodule ".vim/bundle/typescript-vim"]
 	path = .vim/bundle/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim
+[submodule ".vim/bundle/matchit"]
+	path = .vim/bundle/matchit
+	url = https://github.com/tmhedberg/matchit
