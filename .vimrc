@@ -17,6 +17,8 @@ set background=dark
 set number
 
 
+set nocompatible
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -28,6 +30,9 @@ Plugin 'nvie/vim-flake8'
 Plugin 'zhou13/vim-easyescape'  " TODO: configure
 Plugin 'Vimjas/vim-python-pep8-indent'  " TODO: configure
 Plugin 'tmhedberg/matchit'
+
+call vundle#end()
+filetype plugin indent on
 
 set wildignore=build,node_modules,*.pyc
 autocmd BufWritePost *.py call Flake8()
