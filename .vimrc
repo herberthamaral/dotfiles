@@ -19,15 +19,22 @@ set number
 
 " ale  <- this needs to be placed before ALE actually loads
 
-let b:ale_linters = {
-            \ 'python': ['pyls', 'flake8']
-            \}
-let b:ale_fixers = {
+" do not forget to `pip install python-language-server`
+let g:ale_linters = {'python': ['flake8', 'mypy']}
+let g:ale_fixers = {
             \ 'javascript': ['prettier', 'eslint'],
+            \ 'python': ['add_blank_lines_for_python_control_statements', 'isort'],
             \'*': ['remove_trailing_lines', 'trim_whitespace']
             \}
-let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
 map gD :ALEGoToDefinitionInTab<CR>
+map fD :ALEFindReferences<CR>
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
 
 " vundle begin
 
@@ -36,32 +43,40 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'tpope/vim-surround'
+Plugin 'editorconfig/editorconfig-vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'nvie/vim-flake8'
-Plugin 'zhou13/vim-easyescape'
-Plugin 'Vimjas/vim-python-pep8-indent'  " TODO: configure
+Plugin 'mattn/emmet-vim'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
 Plugin 'tmhedberg/matchit'
+Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
 Plugin 'w0rp/ale'
-Plugin 'editorconfig/editorconfig-vim'
+Plugin 'zhou13/vim-easyescape'
 
 call vundle#end()
 filetype plugin indent on
 
 " vundle end
 
+" vim-lsp
+
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+
 " ctrl-p
 
 set wildignore=build,node_modules,*.pyc
-
-" flake-8
-
-" autocmd BufWritePost *.py call Flake8()
 
 " easyescape
 
