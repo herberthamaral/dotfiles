@@ -10,14 +10,34 @@ filetype plugin indent on
 set ignorecase
 set smartcase
 syntax on
-map <S-Tab> :tabprevious<CR>
-map <Tab> :tabnext<CR>
 set hlsearch
 set incsearch
 set background=dark
 set number
+set showcmd
+
+" key bindings
+
+map <S-Tab> :tabprevious<CR>
+map <Tab> :tabnext<CR>
+let mapleader = "\\"
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>h <C-w>h
+nnoremap <leader>l <C-w>l
+nnoremap <leader>r <C-w>r
+nnoremap <leader>- <C-w>-
+nnoremap <leader>= <C-w>+
+
+nnoremap <leader>n :bn<CR>
+nnoremap <leader>p :bp<CR>
+
+let mapleader = "-"
+
+nnoremap <leader>q :bd<CR>
 
 " ale  <- this needs to be placed before ALE actually loads
+
 
 let g:ale_linters = {'python': ['flake8', 'mypy', 'black']}
 let g:ale_fixers = {
@@ -43,7 +63,7 @@ call vundle#begin()
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'mattn/vim-lsp-settings'
 Plugin 'prabirshrestha/async.vim'
@@ -64,7 +84,7 @@ filetype plugin indent on
 " vim-lsp
 
 if executable('pyls')
-    " pip install python-language-server
+    " pip install python-language-server[all]
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
         \ 'cmd': {server_info->['pyls']},
@@ -76,9 +96,9 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gD <plug>(lsp-peek-definition)
+    nmap <buffer> gD <plug>(lsp-definition)
     nmap <buffer> <f2> <plug>(lsp-rename)
-    " refer to doc to add more commands
+    nmap <buffer> <leader>r <plug>(lsp-references)
 endfunction
 
 augroup lsp_install
@@ -99,6 +119,8 @@ let g:lsp_signature_help_enabled = 0
 " ctrl-p
 
 set wildignore=build,node_modules,*.pyc
+let g:ctrlp_working_path_mode = 'rc'
+nnoremap <leader>a :CtrlPBuffer<CR>
 
 " easyescape
 
