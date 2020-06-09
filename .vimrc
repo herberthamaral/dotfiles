@@ -15,22 +15,24 @@ set incsearch
 set background=dark
 set number
 set showcmd
+set splitbelow
+set splitright
 
 " key bindings
 
-map <S-Tab> :tabprevious<CR>
-map <Tab> :tabnext<CR>
+nnoremap <S-Tab> :tabprevious<CR>
+nnoremap <Tab> :tabnext<CR>
+nnoremap <C-o> <Plug>ZoomWin
+
 let mapleader = "\\"
-nnoremap <leader>j <C-w>j
-nnoremap <leader>k <C-w>k
-nnoremap <leader>h <C-w>h
-nnoremap <leader>l <C-w>l
-nnoremap <leader>r <C-w>r
 nnoremap <leader>- <C-w>-
 nnoremap <leader>= <C-w>+
 
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>p :bp<CR>
+
+nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
 let mapleader = "-"
 
@@ -46,8 +48,6 @@ let g:ale_fixers = {
             \'*': ['remove_trailing_lines', 'trim_whitespace']
             \}
 let g:ale_fix_on_save = 1
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -75,6 +75,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0rp/ale'
 Plugin 'zhou13/vim-easyescape'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'drn/zoomwin-vim'
 
 call vundle#end()
 filetype plugin indent on
