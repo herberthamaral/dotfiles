@@ -6,3 +6,4 @@ ln -s $(pwd)/.isort.cfg $HOME/.isort.cfg
 ln -s $(pwd)/.tmux.conf $HOME/.tmux.conf
 pip3 install --user flake8 'python-language-server[all]' proselint
 vim +PluginInstall +qall
+./install-emacs.sh
