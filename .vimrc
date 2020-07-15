@@ -5,6 +5,7 @@ syntax enable
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
+set encoding=utf-8
 filetype plugin indent on
 
 set ignorecase
@@ -20,8 +21,6 @@ set splitright
 
 " key bindings
 
-nnoremap <S-Tab> :tabprevious<CR>
-nnoremap <Tab> :tabnext<CR>
 nnoremap <C-o> <Plug>ZoomWin
 
 let mapleader = "\\"
@@ -41,7 +40,7 @@ nnoremap <leader>q :bd<CR>
 " ale  <- this needs to be placed before ALE actually loads
 
 
-let g:ale_linters = {'python': ['flake8', 'mypy', 'black']}
+let g:ale_linters = {'python': ['flake8', 'mypy', 'black'], 'markdown': ['proselint']}
 let g:ale_fixers = {
             \ 'javascript': ['prettier', 'eslint'],
             \ 'python': ['isort'],
@@ -77,6 +76,8 @@ Plugin 'w0rp/ale'
 Plugin 'zhou13/vim-easyescape'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'drn/zoomwin-vim'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'stephpy/vim-yaml'
 
 call vundle#end()
 filetype plugin indent on
@@ -136,3 +137,18 @@ cnoremap df <ESC>
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_theme='base16'
 let g:airline#extensions#ale#enabled = 1
+
+" vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-g> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
+
+" vim-easymotion
+
+let mapleader = "\\"
+map <Leader><Leader> <Plug>(easymotion-prefix)
