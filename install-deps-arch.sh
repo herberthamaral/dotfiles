@@ -1,5 +1,21 @@
 #!/bin/bash
-pacman -S fd ripgrep editorconfig-core-c sbcl retext jq gnuplot graphviz shellcheck base-devel openssl zlib discount pandoc
+pacman -S \
+    fd \
+    ripgrep \
+    editorconfig-core-c \
+    sbcl \
+    retext \
+    jq \
+    gnuplot \
+    graphviz \
+    shellcheck \
+    base-devel \
+    openssl \
+    zlib \
+    discount \
+    pandoc \
+    ttf-hack \
+    ttf-nerd-fonts-symbols-mono
 
 # asdf
 
@@ -37,3 +53,12 @@ bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-ke
 asdf install nodejs 12.18.2
 asdf global nodejs 12.18.2
 npm install -g marked
+
+
+# fonts
+
+mkdir -p ~/src
+cd ~/src
+git clone https://aur.archlinux.org/nerd-fonts-source-code-pro.git
+cd nerd-fonts-source-code-pro
+makepkg -si
