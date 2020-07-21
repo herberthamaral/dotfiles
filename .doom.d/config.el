@@ -55,6 +55,14 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(use-package! auto-virtualenv
+    :init
+    (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
+
+(use-package! flycheck
+  :init
+  (setq-default flycheck-disabled-checkers '(python-pylint))
+  (setq-default flycheck-checkers  '(python-flake8 python-mypy)))
 
 ;; custom config
 (require 'iso-transl)
