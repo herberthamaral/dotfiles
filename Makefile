@@ -1,6 +1,6 @@
 EMACS_VERSION="27.0.91"
 NODEJS_VERSION="12.8.2"
-PYTHON_VERSION="3.8.3"
+PYTHON_VERSION="3.8.5"
 GOLANG_VERSION="1.14.5"
 
 
@@ -123,15 +123,15 @@ clean-pyenv:
 .PHONY: clean-pyenv
 
 targets/pyenv: SHELL := bash
-targets/pyenv:
+targets/pyenv: # TODO: review this
 	git clone https://github.com/pyenv/pyenv.git "$${HOME}/.pyenv"
-	echo 'export PYENV_ROOT="$HOME/.pyenv"' >> "$${HOME}/.bashrc"
-	echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> "$${HOME}/.bashrc"
+	echo 'export PYENV_ROOT="$$HOME/.pyenv"' >> "$${HOME}/.bashrc"
+	echo 'export PATH="$$PYENV_ROOT/bin:$PATH"' >> "$${HOME}/.bashrc"
 	echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$$(pyenv init -)"\nfi' >> "$${HOME}/.bashrc"
 	touch targets/pyenv
 
 targets/pyenv-python-deps: SHELL := bash
-targets/pyenv-python-deps: targets/arch-dependencies
+targets/pyenv-python-deps: targets/arch-dependencies targets/pyenv
 	source "$${HOME}/.bash_profile"
 	pyenv install $(PYTHON_VERSION)
 	pyenv global $(PYTHON_VERSION)
