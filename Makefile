@@ -14,7 +14,7 @@ clean: clean-vim clean-asdf clean-pyenv clean-emacs
 .ONESHELL:
 
 targets/arch-dependencies:
-	sudo pacman -Syu --noconfirm fd ripgrep editorconfig-core-c sbcl retext jq gnuplot graphviz shellcheck base-devel openssl zlib discount pandoc ttf-hack ttf-nerd-fonts-symbols-mono vim yay
+	sudo pacman -Syu --noconfirm fd ripgrep editorconfig-core-c sbcl retext jq gnuplot graphviz shellcheck base-devel openssl zlib discount pandoc ttf-hack ttf-nerd-fonts-symbols-mono vim yay notmuch
 	touch targets/arch-dependencies
 
 # VIM
@@ -95,6 +95,7 @@ targets/asdf-golang-deps: targets/asdf-golang
 	go get -u golang.org/x/tools/cmd/guru
 	go get -u github.com/cweill/gotests/...
 	go get -u github.com/fatih/gomodifytags
+	go get -u golang.org/x/tools/gopls
 	asdf reshim golang
 	touch targets/asdf-golang-deps
 
@@ -135,7 +136,7 @@ targets/pyenv-python-deps: targets/arch-dependencies targets/pyenv
 	source "$${HOME}/.bash_profile"
 	pyenv install $(PYTHON_VERSION)
 	pyenv global $(PYTHON_VERSION)
-	pip install pipenv pytest grip
+	pip install pipenv pytest grip lieer notmuch
 	touch targets/pyenv-python-deps
 
 
@@ -200,3 +201,9 @@ targets/install-doom: targets/download-doom
 targets/update-doom:
 	$${HOME}/.emacs.d/bin/doom sync -y
 	touch targets/update-doom
+
+
+# notmuch
+
+~/notmuch-config: targets/arch-dependencies
+	notmuch
