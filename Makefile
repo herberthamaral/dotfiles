@@ -59,7 +59,7 @@ targets/isort:
 
 # ASDF
 
-setup-asdf: targets/asdf-golang-deps targets/asdf-node-12
+setup-asdf: targets/asdf-golang-deps targets/asdf-node
 .PHONY: setup-asdf
 
 clean-asdf:
@@ -136,7 +136,7 @@ targets/pyenv-python-deps: targets/arch-dependencies targets/pyenv
 	source "$${HOME}/.bash_profile"
 	pyenv install $(PYTHON_VERSION)
 	pyenv global $(PYTHON_VERSION)
-	pip install pipenv pytest grip lieer notmuch
+	pip install pipenv pytest grip python-language-server[all] mypy flake8 saws
 	touch targets/pyenv-python-deps
 
 
@@ -193,13 +193,12 @@ targets/download-doom: targets/install-emacs
 
 targets/install-doom: SHELL := bash
 targets/install-doom: targets/download-doom
-	$${HOME}/.emacs.d/bin/doom install -y
+	$${HOME}/.emacs.d/bin/doom -y install
 	touch targets/install-doom
-	touch targets/update-doom
 
 
 targets/update-doom:
-	$${HOME}/.emacs.d/bin/doom sync -y
+	$${HOME}/.emacs.d/bin/doom -y sync
 	touch targets/update-doom
 
 
