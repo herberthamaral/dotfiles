@@ -33,40 +33,6 @@
 (setq org-roam-directory "~/org/roam")
 (setq org-noter-notes-search-path "~/org/notes")
 (setq org-archive-location "~/org/archive/%s_archive::")
-(setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "STARTED(s)" "DOING(d)" "WAITING(w)" "|" "DONE(o)" "CANCELLED(c)" "DELEGATED(e)")
-        (sequence "CALL(c)" "INCALL(i)" "|" "CALLED(d)" "CANCELLED(x)")
-        (sequence "BUFFER(b)" "BUFFERING(u)" "BUFFERED(f)" "|" "RELEASED(r)" "DROPPED(r)"))))
-
-(setq org-todo-keyword-faces
-      '(
-  ("TODO" . org-warning)
-  ("BUFFER" . org-warning)
-  ("DOING" . (:foreground "orange" :weight bold))
-  ("BUFFERING" . (:foreground "orange" :weight bold))
-  ("WAITING" . "magenta")
-  ("BUFFERED" . "magenta")
-  ("DONE" . "green")
-  ("RELEASED" . "green")
-  ("DELEGATED" . "green")
-  ))
-
-(setq org-priority-faces '((?A . (:foreground "red"))
-                           (?B . (:foreground "yellow"))
-                           (?C . (:foreground "green"))))
-(setq org-enforce-todo-checkbox-dependencies 1)
-
-;; hl-todo
-(setq hl-todo-keyword-faces
-      `(("TODO"  . ,(face-foreground 'warning))
-        ("FIXME" . ,(face-foreground 'error))
-        ("DEPRECATED" . "#FFA500")
-        ("REFACTOR" . "#FF0000")
-        ("NOTE"  . "#D9FF00")))
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((dot . t)))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -109,6 +75,44 @@
 (use-package! kubernetes-evil
   :ensure t
   :after kubernetes)
+
+(after! org
+
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "STARTED(s)" "DOING(d)" "WAITING(w)" "|" "DONE(o)" "CANCELLED(c)" "DELEGATED(e)")
+                (sequence "CALL(c)" "INCALL(i)" "|" "CALLED(d)" "CANCELLED(x)")
+                (sequence "BUFFER(b)" "BUFFERING(u)" "BUFFERED(f)" "|" "RELEASED(r)" "DROPPED(r)"))))
+
+  (setq org-todo-keyword-faces
+        '(
+          ("TODO" . org-warning)
+          ("BUFFER" . org-warning)
+          ("DOING" . (:foreground "orange" :weight bold))
+          ("BUFFERING" . (:foreground "orange" :weight bold))
+          ("WAITING" . "magenta")
+          ("BUFFERED" . "magenta")
+          ("DONE" . "green")
+          ("RELEASED" . "green")
+          ("DELEGATED" . "green")
+          ))
+
+  (setq org-priority-faces '((?A . (:foreground "red"))
+                             (?B . (:foreground "yellow"))
+                             (?C . (:foreground "green"))))
+  (setq org-enforce-todo-checkbox-dependencies 1)
+
+  ;; hl-todo
+  (setq hl-todo-keyword-faces
+        `(("TODO"  . ,(face-foreground 'warning))
+          ("FIXME" . ,(face-foreground 'error))
+          ("DEPRECATED" . "#FFA500")
+          ("REFACTOR" . "#FF0000")
+          ("NOTE"  . "#D9FF00")))
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t)))
+  )
 
 ;; custom config
 (require 'iso-transl)
