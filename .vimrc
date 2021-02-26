@@ -78,6 +78,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'drn/zoomwin-vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'stephpy/vim-yaml'
+Plugin 'zah/nim.vim'
 
 call vundle#end()
 filetype plugin indent on

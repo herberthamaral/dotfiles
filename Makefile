@@ -1,7 +1,26 @@
-EMACS_VERSION="27.0.91"
+SHELL = /bin/bash
+EMACS_VERSION="27.1"
+
+EMACS_CHANNEL="http://ftp.gnu.org/gnu/emacs/" # https://alpha.gnu.org/gnu/emacs/pretest/ for alpha releases
+
 NODEJS_VERSION="12.8.2"
 PYTHON_VERSION="3.8.5"
 GOLANG_VERSION="1.14.5"
+HOME=$${HOME}
+DISTRO=$(shell awk '/^ID=/ {gsub("ID=", ""); print $0}' /etc/os-release)
+
+# targets:
+
+setup-vim = targets/setup-vim
+setup-vim-vundle = .vim/bundle/Vundle.vim
+setup-dot-vim = ${HOME}/.vim
+setup-vim-vimrc = ${HOME}/.vimrc
+setup-vim-python-deps = targets/vim-python-deps
+isort-config = $${HOME}/.isort.cfg
+setup-tmux = targets/tmux
+setup-os-deps = targets/$(DISTRO)-dependencies
+setup-asdf =
+
 
 
 all: targets/arch-dependencies setup-vim setup-asdf setup-pyenv setup-emacs
@@ -11,9 +30,7 @@ clean: clean-vim clean-asdf clean-pyenv clean-emacs
 .PHONY: clean
 
 
-.ONESHELL:
-
-targets/arch-dependencies:
+targets/manjaro-dependencies:
 	sudo pacman -Syu --noconfirm fd ripgrep editorconfig-core-c sbcl retext jq gnuplot graphviz shellcheck base-devel openssl zlib discount pandoc ttf-hack ttf-nerd-fonts-symbols-mono vim yay notmuch
 	touch targets/arch-dependencies
 
@@ -155,7 +172,7 @@ clean-emacs:
 targets/download-emacs: SHELL := bash
 targets/download-emacs:
 	mkdir -p $${HOME}/src
-	cd $${HOME}/src && curl -LO https://alpha.gnu.org/gnu/emacs/pretest/emacs-${EMACS_VERSION}.tar.xz
+	cd $${HOME}/src && curl -LO ${EMACS_CHANNEL}/emacs-${EMACS_VERSION}.tar.xz
 	cd -
 	touch targets/download-emacs
 
