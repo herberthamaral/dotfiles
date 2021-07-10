@@ -9,6 +9,7 @@
 (setq user-full-name "Herberth Amaral"
       user-mail-address "herberthamaral@gmail.com")
 
+(setq safe-local-variable-values '((lsp-pyright-venv-path . "/home/herberth/bidx1/bidx1/.venv")))
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -56,14 +57,11 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(use-package! auto-virtualenv
-    :init
-    (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
 
-(use-package! flycheck
-  :init
-  (setq-default flycheck-disabled-checkers '(python-pylint lsp))
-  (setq-default flycheck-checkers  '(python-flake8 python-mypy)))
+;; (use-package! flycheck
+;;   :init
+;;   (setq-default flycheck-disabled-checkers '(python-pylint lsp))
+;;   (setq-default flycheck-checkers  '(python-flake8 python-mypy)))
 
 (use-package! org-wild-notifier)
 
@@ -80,15 +78,17 @@
   (setq org-todo-keyword-faces
         '(
           ("TODO" . org-warning)
+          ("CALL" . org-warning)
           ("BUFFER" . org-warning)
           ("DOING" . (:foreground "orange" :weight bold))
+          ("INCALL" . (:foreground "orange" :weight bold))
           ("BUFFERING" . (:foreground "orange" :weight bold))
           ("WAITING" . "magenta")
           ("BUFFERED" . "magenta")
           ("DONE" . "green")
           ("RELEASED" . "green")
-          ("DELEGATED" . "green")
-          ))
+          ("DELEGATED" . "green")))
+
 
   (setq org-priority-faces '((?A . (:foreground "red"))
                              (?B . (:foreground "yellow"))
@@ -100,10 +100,36 @@
         `(("TODO"  . ,(face-foreground 'warning))
           ("FIXME" . ,(face-foreground 'error))
           ("DEPRECATED" . "#FFA500")
+          ("WARNING" . "#FFA500")
           ("REFACTOR" . "#FF0000")
           ("NOTE"  . "#D9FF00")))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((dot . t)))
-  )
+   '((dot . t))))
+
+
+
+;; formatter
+(setq-hook! 'python-mode-hook +format-with-lsp nil)
+(set-formatter! 'black "black -q -l 120 \-")
+
+;; projectile
+
+(map! :n "SPC t i" #'projectile-toggle-between-implementation-and-test)
+(map! :n "SPC p E" #'projectile-discover-projects-in-directory)
+
+;; lsp-mode
+;; (lsp-defun my/filter-pyright ((params &as &PublishDiagnosticsParams :diagnostics)
+;;                               _workspace
+;;   (lsp:set-publish-diagnostics-params-diagnostics
+;;    params
+;;    (or (seq-filter (-lambda ((&Diagnostic :source? :code?))
+;;                      (not (and (string= "python" source?)
+;;                                (not (string= "" :code?))
+;;
+;;                    diagnostics
+;;        []
+;;   params)
+
+;(setq lsp-diagnostic-filter 'my/filter-pyright )

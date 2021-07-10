@@ -116,3 +116,4 @@ WORKON_HOME=~/.envs
 source /usr/local/bin/virtualenvwrapper.sh
 PATH=$PATH:/home/herberth/android-sdk-linux/tools
 ANDROID_HOME=/home/herberth/android-sdk-linux/
+alias ec="emacsclient --create-frame"

@@ -7,3 +7,4 @@ ln -s $(pwd)/.tmux.conf $HOME/.tmux.conf
 pip3 install --user flake8 'python-language-server[all]' proselint
 vim +PluginInstall +qall
 ./install-emacs.sh
+systemctl --user enable emacs.service
