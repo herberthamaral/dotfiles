@@ -120,16 +120,9 @@
 (map! :n "SPC p E" #'projectile-discover-projects-in-directory)
 
 ;; lsp-mode
-;; (lsp-defun my/filter-pyright ((params &as &PublishDiagnosticsParams :diagnostics)
-;;                               _workspace
-;;   (lsp:set-publish-diagnostics-params-diagnostics
-;;    params
-;;    (or (seq-filter (-lambda ((&Diagnostic :source? :code?))
-;;                      (not (and (string= "python" source?)
-;;                                (not (string= "" :code?))
-;;
-;;                    diagnostics
-;;        []
-;;   params)
-
-;(setq lsp-diagnostic-filter 'my/filter-pyright )
+(setf lsp-diagnostic-filter (lambda (param work)
+            (puthash "diagnostics"
+                     (cl-remove-if (lambda (diag) (gethash "tags" diag))
+                 (gethash "diagnostics" param))
+               param)
+            param))
